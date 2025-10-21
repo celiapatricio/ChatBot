@@ -22,3 +22,12 @@ class LLM:
             ]
         )
         return response.choices[0].message.content
+
+    def get_embedding(self, text: str) -> str:
+        """Genera un embedding para el texto dado."""
+        response = self.client.embeddings.create(
+            model="openai/text-embedding-3-small",
+            input=text
+        )
+        return response.data[0].embedding
+    
