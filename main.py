@@ -1,17 +1,43 @@
 from src.llm import LLM
+from src.vector_database import VectorDDBB
+
+def ejercicio1(llm: LLM):
+    """Ejercicio 1: conexión básica con OpenAI"""
+    response = llm.call("How many 'a' are in the word 'MasOrange'?")
+    print(response)
 
 
-def main():
-    llm = LLM()
-    
-    # Ejercicio 1: conexión básica con OpenAI
-    response1 = llm.call("How many 'a' are in the word 'MasOrange'?")
-    print(response1)
-
-    # Ejercicio 2: conexión básica con embedding
+def ejercicio2_1(llm: LLM):
+    """Ejercicio 2.1: generación de embedding básica"""
     vec2 = llm.get_embedding("You shall not pass!")
     print(vec2)
     print(f"Embedding length: {len(vec2)}")
+
+
+def ejercicio2_2():
+    """Ejercicio 2.2: creación de la base de datos vectorial"""
+    vector_db = VectorDDBB()
+
+    sample_markdown = """
+    # Introduction
+    This is the introduction section.
+    
+    ## First Section
+    This is the first section with some content.
+    
+    ## Second Section
+    This is the second section with different content.
+    
+    ## Third Section
+    And this is the third section.
+    """
+    vector_db.load_document(sample_markdown)
+    vector_db.print_number_of_embeddings()
+
+
+def main():
+    ejercicio2_2()
+
 
 if __name__ == "__main__":
     main()
