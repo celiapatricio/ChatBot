@@ -6,18 +6,18 @@ class LLM:
         self._api_key = load_api_key()
         self.client = OpenAI(api_key=self._api_key,
                              base_url="https://llmproxy.ai.orange")
-        
-    def call(self, prompt: str) -> str:
+
+    def call(self, system_msg: str, user_msg: str) -> str:
         response = self.client.chat.completions.create(
             model="openai/gpt-4.1-nano",
             messages=[
                 {
                     "role": "system", 
-                    "content": "You are a helpful assistant."
+                    "content": system_msg
                 },
                 {
                     "role": "user", 
-                    "content": prompt
+                    "content": user_msg
                 }
             ]
         )

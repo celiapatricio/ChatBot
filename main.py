@@ -1,10 +1,13 @@
 from pathlib import Path
 from src.llm import LLM
+from src.chatbot import ChatBot
 from src.vector_database import VectorDDBB
 
 def ejercicio1(llm: LLM):
     """Ejercicio 1: conexión básica con OpenAI"""
-    response = llm.call("How many 'a' are in the word 'MasOrange'?")
+    system_msg = "You are a helpful assistant."
+    user_msg = "How many 'a' are in the word 'MasOrange'?"
+    response = llm.call(system_msg, user_msg)
     print(response)
 
 
@@ -50,8 +53,29 @@ def ejercicio3():
     print(nearest_chunk)
 
 
+def ejercicio4():
+    """Ejercicio 4: integración completa del ChatBot"""
+    # Create LLM and VectorDB instances
+    vector_db = VectorDDBB()
+    # Load document and create embeddings
+    md_path = Path(__file__).parent.parent / "ai-engineer-evaluation-test.md"
+    vector_db.load_document_from_path(md_path)
+    # Create ChatBot instance
+    chatbot = ChatBot(vector_db)
+    # Lista de preguntas
+    questions = [
+        "¿Cuál es la pregunta que se debe responder en el ejercicio 1: Tu primera conexión IA?",
+        "¿Cuáles son los Bonus Points generales que engloban todo el proceso?",
+        "¿Qué modelos hay disponibles para el uso en el ejercicio?"
+    ]
+    for question in questions:
+        answer = chatbot.answer_question(question)
+        print(f"Q: {question}\nA: {answer}")
+        print()
+
+
 def main():
-    ejercicio3()
+    ejercicio4()
 
 
 if __name__ == "__main__":
