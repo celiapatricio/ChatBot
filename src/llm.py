@@ -9,7 +9,7 @@ class LLM:
 
     def call(self, system_msg: str, user_msg: str) -> str:
         response = self.client.chat.completions.create(
-            model="openai/gpt-4.1-nano",
+            model="openai/gpt-4o-mini",
             messages=[
                 {
                     "role": "system", 
